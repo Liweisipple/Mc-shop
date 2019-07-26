@@ -53209,8 +53209,6 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 __webpack_require__(/*! ./components/SelectDistrict */ "./resources/js/components/SelectDistrict.js");
 
-__webpack_require__(/*! ./components/SelectDistrict */ "./resources/js/components/SelectDistrict.js");
-
 __webpack_require__(/*! ./components/UserAddressesCreateAndEdit */ "./resources/js/components/UserAddressesCreateAndEdit.js");
 
 var app = new Vue({

@@ -12,6 +12,7 @@ namespace Carbon\Traits;
 
 use BadMethodCallException;
 use Carbon\CarbonInterface;
+use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
 use Closure;
 use DateTime;
@@ -36,8 +37,8 @@ use ReflectionException;
  * @property      int            $timestamp                                                                          seconds since the Unix Epoch
  * @property      string         $englishDayOfWeek                                                                   the day of week in English
  * @property      string         $shortEnglishDayOfWeek                                                              the abbreviated day of week in English
- * @property      string         $englishMonth                                                                       the day of week in English
- * @property      string         $shortEnglishMonth                                                                  the abbreviated day of week in English
+ * @property      string         $englishMonth                                                                       the month in English
+ * @property      string         $shortEnglishMonth                                                                  the abbreviated month in English
  * @property      string         $localeDayOfWeek                                                                    the day of week in current locale LC_TIME
  * @property      string         $shortLocaleDayOfWeek                                                               the abbreviated day of week in current locale LC_TIME
  * @property      string         $localeMonth                                                                        the month in current locale LC_TIME
@@ -355,62 +356,77 @@ use ReflectionException;
  * @method        $this          addRealMicro()                                                                      Add one microsecond to the instance (using timestamp).
  * @method        $this          subRealMicros(int $value = 1)                                                       Sub microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMicro()                                                                      Sub one microsecond to the instance (using timestamp).
+ * @method        CarbonPeriod   microsUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
  * @method        $this          addRealMicroseconds(int $value = 1)                                                 Add microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
  * @method        $this          subRealMicroseconds(int $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
+ * @method        CarbonPeriod   microsecondsUntil($endDate = null, int $factor = 1)                                 Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
  * @method        $this          addRealMillis(int $value = 1)                                                       Add milliseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMilli()                                                                      Add one millisecond to the instance (using timestamp).
  * @method        $this          subRealMillis(int $value = 1)                                                       Sub milliseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMilli()                                                                      Sub one millisecond to the instance (using timestamp).
+ * @method        CarbonPeriod   millisUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
  * @method        $this          addRealMilliseconds(int $value = 1)                                                 Add milliseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMillisecond()                                                                Add one millisecond to the instance (using timestamp).
  * @method        $this          subRealMilliseconds(int $value = 1)                                                 Sub milliseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMillisecond()                                                                Sub one millisecond to the instance (using timestamp).
+ * @method        CarbonPeriod   millisecondsUntil($endDate = null, int $factor = 1)                                 Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
  * @method        $this          addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealSecond()                                                                     Add one second to the instance (using timestamp).
  * @method        $this          subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealSecond()                                                                     Sub one second to the instance (using timestamp).
+ * @method        CarbonPeriod   secondsUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each second or every X seconds if a factor is given.
  * @method        $this          addRealMinutes(int $value = 1)                                                      Add minutes (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMinute()                                                                     Add one minute to the instance (using timestamp).
  * @method        $this          subRealMinutes(int $value = 1)                                                      Sub minutes (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMinute()                                                                     Sub one minute to the instance (using timestamp).
+ * @method        CarbonPeriod   minutesUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each minute or every X minutes if a factor is given.
  * @method        $this          addRealHours(int $value = 1)                                                        Add hours (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealHour()                                                                       Add one hour to the instance (using timestamp).
  * @method        $this          subRealHours(int $value = 1)                                                        Sub hours (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealHour()                                                                       Sub one hour to the instance (using timestamp).
+ * @method        CarbonPeriod   hoursUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each hour or every X hours if a factor is given.
  * @method        $this          addRealDays(int $value = 1)                                                         Add days (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealDay()                                                                        Add one day to the instance (using timestamp).
  * @method        $this          subRealDays(int $value = 1)                                                         Sub days (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealDay()                                                                        Sub one day to the instance (using timestamp).
+ * @method        CarbonPeriod   daysUntil($endDate = null, int $factor = 1)                                         Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each day or every X days if a factor is given.
  * @method        $this          addRealWeeks(int $value = 1)                                                        Add weeks (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealWeek()                                                                       Add one week to the instance (using timestamp).
  * @method        $this          subRealWeeks(int $value = 1)                                                        Sub weeks (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealWeek()                                                                       Sub one week to the instance (using timestamp).
+ * @method        CarbonPeriod   weeksUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each week or every X weeks if a factor is given.
  * @method        $this          addRealMonths(int $value = 1)                                                       Add months (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMonth()                                                                      Add one month to the instance (using timestamp).
  * @method        $this          subRealMonths(int $value = 1)                                                       Sub months (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMonth()                                                                      Sub one month to the instance (using timestamp).
+ * @method        CarbonPeriod   monthsUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each month or every X months if a factor is given.
  * @method        $this          addRealQuarters(int $value = 1)                                                     Add quarters (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealQuarter()                                                                    Add one quarter to the instance (using timestamp).
  * @method        $this          subRealQuarters(int $value = 1)                                                     Sub quarters (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealQuarter()                                                                    Sub one quarter to the instance (using timestamp).
+ * @method        CarbonPeriod   quartersUntil($endDate = null, int $factor = 1)                                     Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each quarter or every X quarters if a factor is given.
  * @method        $this          addRealYears(int $value = 1)                                                        Add years (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealYear()                                                                       Add one year to the instance (using timestamp).
  * @method        $this          subRealYears(int $value = 1)                                                        Sub years (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealYear()                                                                       Sub one year to the instance (using timestamp).
+ * @method        CarbonPeriod   yearsUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each year or every X years if a factor is given.
  * @method        $this          addRealDecades(int $value = 1)                                                      Add decades (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealDecade()                                                                     Add one decade to the instance (using timestamp).
  * @method        $this          subRealDecades(int $value = 1)                                                      Sub decades (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealDecade()                                                                     Sub one decade to the instance (using timestamp).
+ * @method        CarbonPeriod   decadesUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each decade or every X decades if a factor is given.
  * @method        $this          addRealCenturies(int $value = 1)                                                    Add centuries (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealCentury()                                                                    Add one century to the instance (using timestamp).
  * @method        $this          subRealCenturies(int $value = 1)                                                    Sub centuries (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealCentury()                                                                    Sub one century to the instance (using timestamp).
+ * @method        CarbonPeriod   centuriesUntil($endDate = null, int $factor = 1)                                    Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each century or every X centuries if a factor is given.
  * @method        $this          addRealMillennia(int $value = 1)                                                    Add millennia (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMillennium()                                                                 Add one millennium to the instance (using timestamp).
  * @method        $this          subRealMillennia(int $value = 1)                                                    Sub millennia (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMillennium()                                                                 Sub one millennium to the instance (using timestamp).
+ * @method        CarbonPeriod   millenniaUntil($endDate = null, int $factor = 1)                                    Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millennium or every X millennia if a factor is given.
  * @method        $this          roundYear(float $precision = 1, string $function = "round")                         Round the current instance year with given precision using the given function.
  * @method        $this          roundYears(float $precision = 1, string $function = "round")                        Round the current instance year with given precision using the given function.
  * @method        $this          floorYear(float $precision = 1)                                                     Truncate the current instance year with given precision.
@@ -654,7 +670,7 @@ trait Date
     /**
      * Get a copy of the instance.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function copy()
     {
@@ -666,7 +682,7 @@ trait Date
      *
      * Get a copy of the instance.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function clone()
     {
@@ -676,7 +692,7 @@ trait Date
     /**
      * Returns a present instance in the same timezone.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function nowWithSameTz()
     {
@@ -712,7 +728,7 @@ trait Date
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     protected function resolveCarbon($date = null)
     {
@@ -796,9 +812,9 @@ trait Date
             'englishDayOfWeek' => 'l',
             // @property string the abbreviated day of week in English
             'shortEnglishDayOfWeek' => 'D',
-            // @property string the day of week in English
+            // @property string the month in English
             'englishMonth' => 'F',
-            // @property string the abbreviated day of week in English
+            // @property string the abbreviated month in English
             'shortEnglishMonth' => 'M',
             // @property string the day of week in current locale LC_TIME
             'localeDayOfWeek' => '%A',
@@ -813,7 +829,7 @@ trait Date
         switch (true) {
             case isset($formats[$name]):
                 $format = $formats[$name];
-                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'format';
+                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'rawFormat';
                 $value = $this->$method($format);
 
                 return is_numeric($value) ? (int) $value : $value;
@@ -848,7 +864,7 @@ trait Date
             case $name === 'millisecond':
             // @property int
             case $name === 'milli':
-                return (int) floor($this->format('u') / 1000);
+                return (int) floor($this->rawFormat('u') / 1000);
 
             // @property int 1 through 53
             case $name === 'week':
@@ -892,7 +908,7 @@ trait Date
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
-                return 1 + intval($this->format('z'));
+                return 1 + intval($this->rawFormat('z'));
 
             // @property-read int 365 or 366
             case $name === 'daysInYear':
@@ -950,7 +966,7 @@ trait Date
 
             // @property-read bool daylight savings time indicator, true if DST, false otherwise
             case $name === 'dst':
-                return $this->format('I') === '1';
+                return $this->rawFormat('I') === '1';
 
             // @property-read bool checks if the timezone is local, true if local, false otherwise
             case $name === 'local':
@@ -1035,13 +1051,14 @@ trait Date
     {
         if ($this->isImmutable()) {
             throw new \RuntimeException(sprintf(
-                '%s class is immutable.', static::class
+                '%s class is immutable.',
+                static::class
             ));
         }
 
         if (is_array($name)) {
-            foreach ($name as $_name => $value) {
-                $this->set($_name, $value);
+            foreach ($name as $key => $value) {
+                $this->set($key, $value);
             }
 
             return $this;
@@ -1057,15 +1074,19 @@ trait Date
                 if (substr($name, 0, 5) === 'milli') {
                     $value *= 1000;
                 }
+
                 while ($value < 0) {
                     $this->subSecond();
                     $value += static::MICROSECONDS_PER_SECOND;
                 }
+
                 while ($value >= static::MICROSECONDS_PER_SECOND) {
                     $this->addSecond();
                     $value -= static::MICROSECONDS_PER_SECOND;
                 }
-                $this->modify($this->format('H:i:s.').str_pad(round($value), 6, '0', STR_PAD_LEFT));
+
+                $this->modify($this->rawFormat('H:i:s.').str_pad((string) round($value), 6, '0', STR_PAD_LEFT));
+
                 break;
 
             case 'year':
@@ -1074,45 +1095,59 @@ trait Date
             case 'hour':
             case 'minute':
             case 'second':
-                [$year, $month, $day, $hour, $minute, $second] = explode('-', $this->format('Y-n-j-G-i-s'));
+                [$year, $month, $day, $hour, $minute, $second] = explode('-', $this->rawFormat('Y-n-j-G-i-s'));
                 $$name = $value;
                 $this->setDateTime($year, $month, $day, $hour, $minute, $second);
+
                 break;
 
             case 'week':
-                return $this->week($value);
+                $this->week($value);
+
+                break;
 
             case 'isoWeek':
-                return $this->isoWeek($value);
+                $this->isoWeek($value);
+
+                break;
 
             case 'weekYear':
-                return $this->weekYear($value);
+                $this->weekYear($value);
+
+                break;
 
             case 'isoWeekYear':
-                return $this->isoWeekYear($value);
+                $this->isoWeekYear($value);
+
+                break;
 
             case 'dayOfYear':
                 return $this->addDays($value - $this->dayOfYear);
 
             case 'timestamp':
-                parent::setTimestamp($value);
+                parent::setTimestamp((int) $value);
+
                 break;
 
             case 'offset':
                 $this->setTimezone(static::safeCreateDateTimeZone($value / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR));
+
                 break;
 
             case 'offsetMinutes':
                 $this->setTimezone(static::safeCreateDateTimeZone($value / static::MINUTES_PER_HOUR));
+
                 break;
 
             case 'offsetHours':
                 $this->setTimezone(static::safeCreateDateTimeZone($value));
+
                 break;
 
             case 'timezone':
             case 'tz':
                 $this->setTimezone($value);
+
                 break;
 
             default:
@@ -1221,7 +1256,7 @@ trait Date
      *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @return static|CarbonInterface|int
+     * @return static|int
      */
     public function dayOfYear($value = null)
     {
@@ -1235,7 +1270,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|CarbonInterface|int
+     * @return static|int
      */
     public function weekday($value = null)
     {
@@ -1249,7 +1284,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|CarbonInterface|int
+     * @return static|int
      */
     public function isoWeekday($value = null)
     {
@@ -1265,13 +1300,13 @@ trait Date
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
         try {
             $original = $this->copy();
-            /** @var CarbonInterface $date */
+            /** @var static $date */
             $date = $this->$valueUnit($value);
             $end = $original->copy()->endOf($overflowUnit);
             $start = $original->copy()->startOf($overflowUnit);
@@ -1294,7 +1329,7 @@ trait Date
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1308,7 +1343,7 @@ trait Date
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function subUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1320,7 +1355,7 @@ trait Date
      *
      * @param int|null $offset
      *
-     * @return int|static|CarbonInterface
+     * @return int|static
      */
     public function utcOffset(int $offset = null)
     {
@@ -1342,11 +1377,11 @@ trait Date
      * @param int $second
      * @param int $microseconds
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
-        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second, $microseconds);
+        return $this->setDate((int) $year, (int) $month, (int) $day)->setTime((int) $hour, (int) $minute, (int) $second, (int) $microseconds);
     }
 
     /**
@@ -1354,7 +1389,7 @@ trait Date
      *
      * @param string $time
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setTimeFromTimeString($time)
     {
@@ -1370,7 +1405,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function timezone($value)
     {
@@ -1382,7 +1417,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return CarbonInterface|string
+     * @return static|string
      */
     public function tz($value = null)
     {
@@ -1398,7 +1433,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setTimezone($value)
     {
@@ -1416,7 +1451,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function shiftTimezone($value)
     {
@@ -1429,7 +1464,7 @@ trait Date
     /**
      * Set the instance's timezone to UTC.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function utc()
     {
@@ -1475,7 +1510,7 @@ trait Date
     {
         $date = $this->resolveCarbon($date);
 
-        return $this->modify($date->format('Y-m-d H:i:s.u'));
+        return $this->modify($date->rawFormat('Y-m-d H:i:s.u'));
     }
 
     /**
@@ -1597,7 +1632,7 @@ trait Date
      */
     public static function hasRelativeKeywords($time)
     {
-        if (strtotime($time) === false) {
+        if (!$time || strtotime($time) === false) {
             return false;
         }
 
@@ -1692,6 +1727,7 @@ trait Date
     public static function getIsoUnits()
     {
         static $units = null;
+
         if ($units === null) {
             $units = [
                 'OD' => ['getAltNumber', ['day']],
@@ -1702,7 +1738,7 @@ trait Date
                 'Om' => ['getAltNumber', ['minute']],
                 'Os' => ['getAltNumber', ['second']],
                 'D' => 'day',
-                'DD' => ['format', ['d']],
+                'DD' => ['rawFormat', ['d']],
                 'Do' => ['ordinal', ['day', 'D']],
                 'd' => 'dayOfWeek',
                 'dd' => function (CarbonInterface $date, $originalFormat = null) {
@@ -1719,49 +1755,49 @@ trait Date
                 'DDDo' => ['ordinal', ['dayOfYear', 'DDD']],
                 'e' => ['weekday', []],
                 'E' => 'dayOfWeekIso',
-                'H' => ['format', ['G']],
-                'HH' => ['format', ['H']],
-                'h' => ['format', ['g']],
-                'hh' => ['format', ['h']],
+                'H' => ['rawFormat', ['G']],
+                'HH' => ['rawFormat', ['H']],
+                'h' => ['rawFormat', ['g']],
+                'hh' => ['rawFormat', ['h']],
                 'k' => 'noZeroHour',
                 'kk' => ['getPaddedUnit', ['noZeroHour']],
-                'hmm' => ['format', ['gi']],
-                'hmmss' => ['format', ['gis']],
-                'Hmm' => ['format', ['Gi']],
-                'Hmmss' => ['format', ['Gis']],
+                'hmm' => ['rawFormat', ['gi']],
+                'hmmss' => ['rawFormat', ['gis']],
+                'Hmm' => ['rawFormat', ['Gi']],
+                'Hmmss' => ['rawFormat', ['Gis']],
                 'm' => 'minute',
-                'mm' => ['format', ['i']],
+                'mm' => ['rawFormat', ['i']],
                 'a' => 'meridiem',
                 'A' => 'upperMeridiem',
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return strval(floor($date->micro / 100000));
+                    return strval((string) floor($date->micro / 100000));
                 },
                 'SS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
                 },
                 'SSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 1000), 3, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 1000), 3, '0', STR_PAD_LEFT);
                 },
                 'SSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 100), 4, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 100), 4, '0', STR_PAD_LEFT);
                 },
                 'SSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 10), 5, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 10), 5, '0', STR_PAD_LEFT);
                 },
                 'SSSSSS' => ['getPaddedUnit', ['micro', 6]],
                 'SSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro * 10), 7, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro * 10), 7, '0', STR_PAD_LEFT);
                 },
                 'SSSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro * 100), 8, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro * 100), 8, '0', STR_PAD_LEFT);
                 },
                 'SSSSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro * 1000), 9, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro * 1000), 9, '0', STR_PAD_LEFT);
                 },
                 'M' => 'month',
-                'MM' => ['format', ['m']],
+                'MM' => ['rawFormat', ['m']],
                 'MMM' => function (CarbonInterface $date, $originalFormat = null) {
                     $month = $date->getTranslatedShortMonthName($originalFormat);
                     $suffix = $date->getTranslationMessage('mmm_suffix');
@@ -1796,7 +1832,7 @@ trait Date
                 'x' => ['valueOf', []],
                 'X' => 'timestamp',
                 'Y' => 'year',
-                'YY' => ['format', ['y']],
+                'YY' => ['rawFormat', ['y']],
                 'YYYY' => ['getPaddedUnit', ['year', 4]],
                 'YYYYY' => ['getPaddedUnit', ['year', 5]],
                 'YYYYYY' => function (CarbonInterface $date) {
@@ -1824,7 +1860,7 @@ trait Date
      */
     public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = STR_PAD_LEFT)
     {
-        return ($this->$unit < 0 ? '-' : '').str_pad(abs($this->$unit), $length, $padString, $padType);
+        return ($this->$unit < 0 ? '-' : '').str_pad((string) abs($this->$unit), $length, $padString, $padType);
     }
 
     /**
@@ -1895,7 +1931,7 @@ trait Date
      */
     public function getAltNumber(string $key): string
     {
-        $number = strlen($key) > 1 ? $this->$key : $this->format('h');
+        $number = strlen($key) > 1 ? $this->$key : $this->rawFormat('h');
         $translateKey = "alt_numbers.$number";
         $symbol = $this->translate($translateKey);
 
@@ -1904,11 +1940,31 @@ trait Date
         }
 
         if ($number > 99 && $this->translate('alt_numbers.99') !== 'alt_numbers.99') {
+            $start = '';
+            foreach ([10000, 1000, 100] as $exp) {
+                $key = "alt_numbers_pow.$exp";
+                if ($number >= $exp && $number < $exp * 10 && ($pow = $this->translate($key)) !== $key) {
+                    $unit = floor($number / $exp);
+                    $number -= $unit * $exp;
+                    $start .= ($unit > 1 ? $this->translate("alt_numbers.$unit") : '').$pow;
+                }
+            }
             $result = '';
             while ($number) {
                 $chunk = $number % 100;
                 $result = $this->translate("alt_numbers.$chunk").$result;
                 $number = floor($number / 100);
+            }
+
+            return "$start$result";
+        }
+
+        if ($number > 9 && $this->translate('alt_numbers.9') !== 'alt_numbers.9') {
+            $result = '';
+            while ($number) {
+                $chunk = $number % 10;
+                $result = $this->translate("alt_numbers.$chunk").$result;
+                $number = floor($number / 10);
             }
 
             return $result;
@@ -1918,21 +1974,25 @@ trait Date
     }
 
     /**
-     * @param string $format
+     * Format in the current language using ISO replacement patterns.
+     *
+     * @param string      $format
+     * @param string|null $originalFormat provide context if a chunk has been passed alone
      *
      * @return string
      */
-    public function isoFormat(string $format): string
+    public function isoFormat(string $format, string $originalFormat = null): string
     {
         $result = '';
         $length = mb_strlen($format);
-        $originalFormat = $format;
+        $originalFormat = $originalFormat ?: $format;
         $inEscaped = false;
         $formats = null;
         $units = null;
 
         for ($i = 0; $i < $length; $i++) {
             $char = mb_substr($format, $i, 1);
+
             if ($char === '\\') {
                 $result .= mb_substr($format, ++$i, 1);
 
@@ -1958,6 +2018,7 @@ trait Date
             }
 
             $input = mb_substr($format, $i);
+
             if (preg_match('/^(LTS|LT|[Ll]{1,4})/', $input, $match)) {
                 if ($formats === null) {
                     $formats = $this->getIsoFormats();
@@ -1977,13 +2038,15 @@ trait Date
                 $input = $sequence.$rest;
             }
 
-            if (preg_match('/^(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
+            if (preg_match('/^'.CarbonInterface::ISO_FORMAT_REGEXP.'/', $input, $match)) {
                 $code = $match[0];
+
                 if ($units === null) {
                     $units = static::getIsoUnits();
                 }
 
                 $sequence = $units[$code] ?? '';
+
                 if ($sequence instanceof Closure) {
                     $sequence = $sequence($this, $originalFormat);
                 } elseif (is_array($sequence)) {
@@ -1995,8 +2058,9 @@ trait Date
                 } elseif (is_string($sequence)) {
                     $sequence = $this->$sequence ?? $code;
                 }
+
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
-                $i += mb_strlen($sequence) - 1;
+                $i += mb_strlen("$sequence") - 1;
                 $length = mb_strlen($format);
                 $char = $sequence;
             }
@@ -2005,6 +2069,145 @@ trait Date
         }
 
         return $result;
+    }
+
+    /**
+     * List of replacements from date() format to isoFormat().
+     *
+     * @return array
+     */
+    public static function getFormatsToIsoReplacements()
+    {
+        static $replacements = null;
+
+        if ($replacements === null) {
+            $replacements = [
+                'd' => true,
+                'D' => 'ddd',
+                'j' => true,
+                'l' => 'dddd',
+                'N' => true,
+                'S' => function ($date) {
+                    $day = $date->rawFormat('j');
+
+                    return str_replace("$day", '', $date->isoFormat('Do'));
+                },
+                'w' => true,
+                'z' => true,
+                'W' => true,
+                'F' => 'MMMM',
+                'm' => true,
+                'M' => 'MMM',
+                'n' => true,
+                't' => true,
+                'L' => true,
+                'o' => true,
+                'Y' => true,
+                'y' => true,
+                'a' => 'a',
+                'A' => 'A',
+                'B' => true,
+                'g' => true,
+                'G' => true,
+                'h' => true,
+                'H' => true,
+                'i' => true,
+                's' => true,
+                'u' => true,
+                'v' => true,
+                'E' => true,
+                'I' => true,
+                'O' => true,
+                'P' => true,
+                'Z' => true,
+                'c' => true,
+                'r' => true,
+                'U' => true,
+            ];
+        }
+
+        return $replacements;
+    }
+
+    /**
+     * Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)
+     * but translate words whenever possible (months, day names, etc.) using the current locale.
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    public function translatedFormat(string $format): string
+    {
+        $replacements = static::getFormatsToIsoReplacements();
+        $context = '';
+        $isoFormat = '';
+        $length = mb_strlen($format);
+
+        for ($i = 0; $i < $length; $i++) {
+            $char = mb_substr($format, $i, 1);
+
+            if ($char === '\\') {
+                $replacement = mb_substr($format, $i, 2);
+                $isoFormat .= $replacement;
+                $i++;
+
+                continue;
+            }
+
+            if (!isset($replacements[$char])) {
+                $replacement = preg_match('/^[A-Za-z]$/', $char) ? "\\$char" : $char;
+                $isoFormat .= $replacement;
+                $context .= $replacement;
+
+                continue;
+            }
+
+            $replacement = $replacements[$char];
+
+            if ($replacement === true) {
+                static $contextReplacements = null;
+
+                if ($contextReplacements === null) {
+                    $contextReplacements = [
+                        'm' => 'MM',
+                        'd' => 'DD',
+                        't' => 'D',
+                        'j' => 'D',
+                        'N' => 'e',
+                        'w' => 'e',
+                        'n' => 'M',
+                        'o' => 'YYYY',
+                        'Y' => 'YYYY',
+                        'y' => 'YY',
+                        'g' => 'h',
+                        'G' => 'H',
+                        'h' => 'hh',
+                        'H' => 'HH',
+                        'i' => 'mm',
+                        's' => 'ss',
+                    ];
+                }
+
+                $isoFormat .= '['.$this->rawFormat($char).']';
+                $context .= $contextReplacements[$char] ?? ' ';
+
+                continue;
+            }
+
+            if ($replacement instanceof Closure) {
+                $replacement = '['.$replacement($this).']';
+                $isoFormat .= $replacement;
+                $context .= $replacement;
+
+                continue;
+            }
+
+            $isoFormat .= $replacement;
+            $context .= $replacement;
+        }
+
+        return $this->isoFormat($isoFormat, $context);
     }
 
     /**
@@ -2022,8 +2225,8 @@ trait Date
         $second = $this->getOffset();
         $symbol = $second < 0 ? '-' : '+';
         $minute = abs($second) / static::SECONDS_PER_MINUTE;
-        $hour = str_pad(floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
-        $minute = str_pad($minute % static::MINUTES_PER_HOUR, 2, '0', STR_PAD_LEFT);
+        $hour = str_pad((string) floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
+        $minute = str_pad((string) ($minute % static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
 
         return "$symbol$hour$separator$minute";
     }
@@ -2059,7 +2262,9 @@ trait Date
             }
             if (static::isStrictModeEnabled()) {
                 throw new BadMethodCallException(sprintf(
-                    'Method %s::%s does not exist.', static::class, $method
+                    'Method %s::%s does not exist.',
+                    static::class,
+                    $method
                 ));
             }
 
@@ -2083,7 +2288,7 @@ trait Date
         $dateUnits = ['year', 'month', 'day'];
         if (in_array($unit, $dateUnits)) {
             return $this->setDate(...array_map(function ($name) use ($unit, $value) {
-                return $name === $unit ? $value : $this->$name;
+                return (int) ($name === $unit ? $value : $this->$name);
             }, $dateUnits));
         }
 
@@ -2096,7 +2301,7 @@ trait Date
         }
 
         return $this->setTime(...array_map(function ($name) use ($unit, $value) {
-            return $name === $unit ? $value : $this->$name;
+            return (int) ($name === $unit ? $value : $this->$name);
         }, $units));
     }
 
@@ -2192,11 +2397,13 @@ trait Date
         ];
         $sizePattern = implode('|', array_keys($diffSizes));
         $syntaxPattern = implode('|', array_keys($diffSyntaxModes));
+
         if (preg_match("/^(?<size>$sizePattern)(?<syntax>$syntaxPattern)DiffForHumans$/", $method, $match)) {
             $dates = array_filter($parameters, function ($parameter) {
                 return $parameter instanceof DateTimeInterface;
             });
             $other = null;
+
             if (count($dates)) {
                 $key = key($dates);
                 $other = current($dates);
@@ -2207,19 +2414,24 @@ trait Date
         }
 
         $action = substr($method, 0, 4);
+
         if ($action !== 'ceil') {
             $action = substr($method, 0, 5);
         }
+
         if (in_array($action, ['round', 'floor', 'ceil'])) {
             return $this->{$action.'Unit'}(substr($method, strlen($action)), ...$parameters);
         }
 
         $unit = rtrim($method, 's');
+
         if (substr($unit, 0, 2) === 'is') {
             $word = substr($unit, 2);
+
             if (in_array($word, static::$days)) {
                 return $this->isDayOfWeek($word);
             }
+
             switch ($word) {
                 // @call is Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
                 case 'Utc':
@@ -2239,6 +2451,7 @@ trait Date
 
         $action = substr($unit, 0, 3);
         $overflow = null;
+
         if ($action === 'set') {
             $unit = strtolower(substr($unit, 3));
         }
@@ -2249,6 +2462,7 @@ trait Date
 
         if ($action === 'add' || $action === 'sub') {
             $unit = substr($unit, 3);
+
             if (substr($unit, 0, 4) === 'Real') {
                 $unit = static::singularUnit(substr($unit, 4));
 
@@ -2259,6 +2473,7 @@ trait Date
                 $unit = $match[1];
                 $overflow = $match[2] === 'With';
             }
+
             $unit = static::singularUnit($unit);
         }
 
@@ -2295,6 +2510,16 @@ trait Date
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
             } catch (InvalidArgumentException | BadMethodCallException $exception) {
                 // Try macros
+            }
+        }
+
+        if (substr($method, -5) === 'Until') {
+            try {
+                $unit = static::singularUnit(substr($method, 0, -5));
+
+                return $this->range($parameters[0] ?? $this, $parameters[1] ?? 1, $unit);
+            } catch (InvalidArgumentException $exception) {
+                // Try next
             }
         }
 
